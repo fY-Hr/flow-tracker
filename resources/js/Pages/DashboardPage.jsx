@@ -8,12 +8,6 @@ const DashboardPage = () => {
 
     const { props } = usePage();
 
-    useEffect(() => {
-        if(props.unauthenticated){
-            Inertia.visit('/dashboard');
-        }
-    }, [props.unauthenticated]);
-
     return (
         <>
             <Layout>

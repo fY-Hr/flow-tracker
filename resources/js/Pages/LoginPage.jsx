@@ -6,11 +6,11 @@ import { usePage, Link, useForm, router } from "@inertiajs/react";
 
 const LoginPage = () => {
 
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const { errors } = usePage().props;
     const { props } = usePage();
 
     const user = props.auth.user;
+    const csrfToken = props.csrf_token;
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -20,41 +20,24 @@ const LoginPage = () => {
 
 
     useEffect(() => {
-        const submitButton = document.querySelector('#submit-button');
-
-        const handleClick = (e) => {
-            e.preventDefault();
-
-            if (username === '' || password === '') {
-                setFrontendError('*Please fill in all the fields*');
-            } else if (username != '' && password != '') {
-                setFrontendError('');
-                handleLogin();
-            }
-        };
-
-        if (submitButton) {
-            submitButton.addEventListener('click', handleClick);
-        }
-
-        return () => {
-            if (submitButton) {
-                submitButton.removeEventListener('click', handleClick);
-            }
-        };
-    }, [username, password]);
-
-    useEffect(() => {
         if (user != null) {
             router.visit('/dashboard');
+        }else{
+            router.reload();
         }
-
         console.log(user);
-    }, []);
+    }, [user]);
+    
+    const handleClick = (e) => {
+        e.preventDefault();
 
-    if (user != null) {
-        router.visit('/dashboard');
-    }
+        if (username === '' || password === '') {
+            setFrontendError('*Please fill in all the fields*');
+        } else if (username != '' && password != '') {
+            setFrontendError('');
+            handleLogin();
+        }
+    };
 
     const handleLogin = () => {
         console.log(checkLoading)
@@ -96,13 +79,13 @@ const LoginPage = () => {
                                 </div>
                             )}
                         </div>
-                        <form className=" flex flex-col items-center gap-3">
+                        <form className=" flex flex-col items-center gap-3" onSubmit={handleClick}>
                             <input type="hidden" name="_token" value={csrfToken} />
                             <input type="text" name="username" value={username} onChange={(e) => { setUsername(e.target.value) }} minLength="3" maxLength="18" placeholder="Username" className="px-6 py-2 border rounded-md outline-none focus:border-blue-400 duration-500"></input>
                             <input type="password" name="password" value={password} onChange={(e) => { setPassword(e.target.value) }} minLength="3" maxLength="18" placeholder="Password" className="px-6 py-2 border rounded-md outline-none focus:border-blue-400 duration-500"></input>
                             <button id="submit-button" className="bg-gray-800 text-white font-bold py-2 w-[100%] border-2 border-gray-800 rounded-md hover:bg-white hover:border-gray-800 hover:text-black">Login</button>
                         </form>
-                        <h1 className="pt-2">Don't have an account? <span className="underline text-blue-400 cursor-pointer"><Link href="/sign-in">Sign-in</Link></span></h1>
+                        <h1 className="pt-2">Don't have an account? <span className="underline text-blue-400 cursor-pointer"><Link href="/sign-up">Sign-up</Link></span></h1>
                     </div>
                 </div>
             </div>

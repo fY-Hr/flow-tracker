@@ -22,8 +22,8 @@ Route::get('/dashboard', function () {
     }
 
 });
-Route::get('/sign-in', function () {
-    return Inertia::render('SignInPage', [
+Route::get('/sign-up', function () {
+    return Inertia::render('SignupPage', [
         'auth' => [
             'user' => Auth::user(),
         ],

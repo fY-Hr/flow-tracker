@@ -1,9 +1,13 @@
-import { useForm, router } from '@inertiajs/react';
+import { useForm, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 const Header = ({pageTitle}) => {
 
     const [isLogoutPopup, setIsLogoutPopup] = useState(false);
+
+    const { props } = usePage();
+    const csrfToken = props.csrf_token;
+
 
     const showLogoutPopup = () => {
         setIsLogoutPopup(true);
@@ -17,7 +21,9 @@ const Header = ({pageTitle}) => {
 
     const handleLogout = (e) => {
         e.preventDefault();
-        router.post('/logout', '', {
+        router.post('/logout', {
+            _token: csrfToken
+        }, {
             replace: true
         });
     }
