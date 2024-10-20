@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { useForm, router } from '@inertiajs/react';
 import { useState } from 'react';
 
 const Header = ({pageTitle}) => {
@@ -17,7 +17,9 @@ const Header = ({pageTitle}) => {
 
     const handleLogout = (e) => {
         e.preventDefault();
-        post('/logout');
+        router.post('/logout', '', {
+            replace: true
+        });
     }
 
     return (

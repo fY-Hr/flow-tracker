@@ -51,8 +51,6 @@ class UserController extends Controller
             return redirect('/')->withErrors(['error' => '*Wrong username or password*']);
             // return redirect('/');
         }
-        
-        
 
     }
 

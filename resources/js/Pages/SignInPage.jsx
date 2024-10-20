@@ -44,15 +44,15 @@ const SignInPage = () => {
     }, [username, password]);
 
     useEffect(() => {
-        if (user.id) {
-            router.visit('/dashboard', { preserveState: true });
+        if (user) {
+            router.visit('/dashboard');
         }
 
         console.log(user);
     }, []);
 
-    if (user.id) {
-        router.visit('/dashboard', { preserveState: true });
+    if (user) {
+        router.visit('/dashboard');
     }
 
     const handleSignUp = () => {

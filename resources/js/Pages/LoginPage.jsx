@@ -45,15 +45,15 @@ const LoginPage = () => {
     }, [username, password]);
 
     useEffect(() => {
-        if (user.id) {
-            router.visit('/dashboard', { preserveState: true });
+        if (user != null) {
+            router.visit('/dashboard');
         }
 
         console.log(user);
     }, []);
 
-    if (user.id) {
-        router.visit('/dashboard', { preserveState: true });
+    if (user != null) {
+        router.visit('/dashboard');
     }
 
     const handleLogin = () => {
@@ -68,7 +68,8 @@ const LoginPage = () => {
         }, {
             onFinish: () => {
                 setCheckLoading(false);
-            }
+            },
+            replace: true
         });
     };
 
