@@ -17,16 +17,20 @@ const LoginPage = () => {
     const [frontendError, setFrontendError] = useState('');
     const [checkLoading, setCheckLoading] = useState(false);
 
-
-
     useEffect(() => {
-        if (user != null) {
-            router.visit('/dashboard');
-        }else{
+        if (user) {
+            router.visit('/dashboard', {replace: true});
+        } else {
             router.reload();
         }
+
         console.log(user);
     }, [user]);
+
+    if (user) {
+        router.visit('/dashboard', {replace: true});
+        return null;
+    }
     
     const handleClick = (e) => {
         e.preventDefault();
@@ -52,7 +56,6 @@ const LoginPage = () => {
             onFinish: () => {
                 setCheckLoading(false);
             },
-            replace: true
         });
     };
 

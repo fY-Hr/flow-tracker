@@ -1,6 +1,7 @@
 import { useForm, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
+
 const Header = ({pageTitle}) => {
 
     const [isLogoutPopup, setIsLogoutPopup] = useState(false);

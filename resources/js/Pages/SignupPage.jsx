@@ -16,13 +16,19 @@ const SignupPage = () => {
     const [checkLoading, setCheckLoading] = useState(false);
 
     useEffect(() => {
-        if (user != null) {
+        if (user) {
             router.visit('/dashboard');
-        }else{
+        } else {
             router.reload();
         }
+
         console.log(user);
     }, [user]);
+
+    if (user) {
+        router.visit('/dashboard');
+        return null;
+    }
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -47,7 +53,6 @@ const SignupPage = () => {
             onFinish: () => {
                 setCheckLoading(false)
             },
-            replace: true
         });
         
     }
